@@ -1,5 +1,6 @@
 package com.krakedev.veterinaria.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,11 +21,11 @@ public class MascotaController {
     private List<Mascota> mascotas = new ArrayList<>();
 
     public MascotaController() {
-        mascotas.add(new Mascota(1, "Firulais", "Perro", 3, "Juan Perez"));
-        mascotas.add(new Mascota(2, "Michi", "Gato", 2, "Ana Gomez"));
-        mascotas.add(new Mascota(3, "Nemo", "Pez", 1, "Carlos Lopez"));
-        mascotas.add(new Mascota(4, "Bobby", "Perro", 4, "Laura Martinez"));
-        mascotas.add(new Mascota(5, "Luna", "Gato", 5, "Sofia Rodriguez"));
+        mascotas.add(new Mascota(1L, "Firulais", "Perro", 3, "Juan Perez", LocalDate.now()));
+        mascotas.add(new Mascota(2L, "Michi", "Gato", 2, "Ana Gomez", LocalDate.now()));
+        mascotas.add(new Mascota(3L, "Nemo", "Pez", 1, "Carlos Lopez", LocalDate.now()));
+        mascotas.add(new Mascota(4L, "Bobby", "Perro", 4, "Laura Martinez", LocalDate.now()));
+        mascotas.add(new Mascota(5L, "Luna", "Gato", 5, "Sofia Rodriguez", LocalDate.now()));
     }
 
     @GetMapping
