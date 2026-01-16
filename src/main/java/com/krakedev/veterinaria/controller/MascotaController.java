@@ -7,11 +7,13 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 //import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +56,32 @@ public class MascotaController {
         Optional<Mascota> mascota = mascotaService.buscarPorId(id);
         return mascota.isPresent() ? ResponseEntity.ok(mascota.get())
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mascota no encontrada");
+    }
+
+    @PutMapping("/actualizar/{idMascota}")
+    public ResponseEntity<?> actualizarMascota(@PathVariable Long idMascota, @RequestBody Mascota mascota) {
+        try {
+            Mascota mascotaActualizada = new Mascota();
+            mascotaActualizada.setNombre(mascota.getNombre());
+            mascotaActualizada.setEspecie(mascota.getEspecie());
+            mascotaActualizada.setEdad(mascota.getEdad());
+            mascotaActualizada.setPropietario(mascota.getPropietario());
+
+            Mascota mascotaBBDD = mascotaService.actualizarMascota(idMascota, mascotaActualizada);
+            return ResponseEntity.ok(mascotaBBDD);
+        } catch (Exception error) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
+        }
+    }
+
+    @DeleteMapping("/eliminar/{idMascota}")
+    public ResponseEntity<?> eliminarMascota(@PathVariable Long idMascota) {
+        try {
+            mascotaService.eliminarMascota(idMascota);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception error) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
+        }
     }
     
     /*
