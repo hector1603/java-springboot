@@ -32,4 +32,9 @@ public class Mascota {
 
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
+
+    @PrePersist
+    public void prePersist() {
+        this.fechaRegistro = LocalDate.now();
+    }
 }
